@@ -1,0 +1,3271 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Knowledge in Motion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <style>
+/* Knowledge in Motion — refined design system */
+
+:root {
+  --bg: #090b0f;
+  --bg-sidebar: #0d1017;
+  --bg-elevated: #12151c;
+  --bg-card: #161a22;
+  --bg-input: #0e1117;
+  --bg-hover: #1c212b;
+  --border: #252a35;
+  --border-subtle: #1c2029;
+  --border-focus: #3d6fe0;
+  --text: #f0f2f5;
+  --text-secondary: #8b93a7;
+  --text-muted: #5c6578;
+  --accent: #4d7cff;
+  --accent-hover: #3d6aef;
+  --accent-muted: rgba(77, 124, 255, 0.14);
+  --accent-glow: rgba(77, 124, 255, 0.22);
+  --success: #34c77b;
+  --success-bg: rgba(52, 199, 123, 0.1);
+  --error: #f07178;
+  --error-bg: rgba(240, 113, 120, 0.1);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-xs: 6px;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
+  --shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+  --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+  font-size: 15px;
+}
+
+body {
+  min-height: 100%;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.011em;
+}
+
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ─── Sidebar ─── */
+.sidebar {
+  width: 232px;
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  padding: 28px 14px 20px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 10px 32px;
+}
+
+.brand-mark {
+  width: 34px;
+  height: 34px;
+  background: linear-gradient(145deg, #5b8aff 0%, #3a62d4 100%);
+  border-radius: 9px;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(61, 111, 224, 0.35);
+  flex-shrink: 0;
+}
+
+.brand-mark::after {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  border: 1.5px solid rgba(255, 255, 255, 0.92);
+  border-radius: 2px;
+  border-right: none;
+  border-bottom: none;
+  transform: rotate(45deg);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.brand-name {
+  font-weight: 600;
+  font-size: 13.5px;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.brand-tag {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 450;
+  letter-spacing: 0.01em;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 13.5px;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.18s var(--ease), color 0.18s var(--ease);
+  text-align: left;
+  font-family: inherit;
+  letter-spacing: -0.01em;
+}
+
+.nav-item:hover {
+  background: var(--bg-hover);
+  color: var(--text);
+}
+
+.nav-item.active {
+  background: var(--accent-muted);
+  color: #7ba0ff;
+}
+
+.nav-icon {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  opacity: 0.85;
+  flex-shrink: 0;
+}
+
+.sidebar-footer {
+  padding-top: 16px;
+  border-top: 1px solid var(--border-subtle);
+  margin-top: 12px;
+}
+
+/* ─── Main ─── */
+.main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 40px 48px 64px;
+  max-width: 920px;
+}
+
+.view {
+  display: none;
+  animation: fadeIn 0.25s var(--ease);
+}
+
+.view.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.workspace-header {
+  margin-bottom: 32px;
+}
+
+.workspace-header h1 {
+  font-size: 28px;
+  font-weight: 650;
+  letter-spacing: -0.035em;
+  margin-bottom: 8px;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 14.5px;
+  line-height: 1.5;
+  max-width: 540px;
+  font-weight: 400;
+}
+
+/* ─── Input panel ─── */
+.input-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 26px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.field-group {
+  margin-bottom: 18px;
+}
+
+.field-group:last-child {
+  margin-bottom: 0;
+}
+
+.field-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 550;
+  color: var(--text-secondary);
+  margin-bottom: 7px;
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+
+.optional {
+  font-weight: 400;
+  color: var(--text-muted);
+  text-transform: none;
+}
+
+.field-group input[type="text"],
+.field-group input[type="password"],
+.field-group textarea,
+.field-group select {
+  width: 100%;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+  padding: 11px 14px;
+  transition: border-color 0.18s var(--ease), box-shadow 0.18s var(--ease);
+  letter-spacing: -0.01em;
+}
+
+.field-group input::placeholder,
+.field-group textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.field-group input:hover,
+.field-group textarea:hover,
+.field-group select:hover {
+  border-color: #323846;
+}
+
+.field-group input:focus,
+.field-group textarea:focus,
+.field-group select:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.field-group textarea {
+  resize: vertical;
+  min-height: 96px;
+  line-height: 1.55;
+}
+
+.field-group select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2.5 4.5L6 8L9.5 4.5' stroke='%238b93a7' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+
+.controls-row {
+  display: flex;
+  gap: 14px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.field-group.compact {
+  flex: 1;
+  min-width: 168px;
+  margin-bottom: 0;
+}
+
+/* ─── Buttons ─── */
+.btn-primary,
+.btn-secondary,
+.btn-ghost {
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 550;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.18s var(--ease), border-color 0.18s var(--ease),
+              opacity 0.18s var(--ease), transform 0.12s var(--ease),
+              box-shadow 0.18s var(--ease);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  padding: 0 22px;
+  height: 42px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+  box-shadow: 0 2px 8px rgba(61, 111, 224, 0.35);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 8px 14px;
+  height: 36px;
+}
+
+.btn-secondary:hover {
+  border-color: #3a4150;
+  background: var(--bg-hover);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  padding: 8px 12px;
+  height: 34px;
+}
+
+.btn-ghost:hover {
+  color: var(--text);
+  background: var(--bg-hover);
+}
+
+.btn-ghost.small,
+.btn-secondary.small {
+  font-size: 12.5px;
+  height: 32px;
+  padding: 0 11px;
+  font-weight: 500;
+}
+
+.btn-spinner {
+  width: 15px;
+  height: 15px;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.65s linear infinite;
+}
+
+.btn-spinner.hidden {
+  display: none;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ─── Format tabs ─── */
+.format-tabs {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 18px;
+  background: var(--bg-elevated);
+  padding: 4px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  width: fit-content;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.format-tab {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: color 0.18s var(--ease), background 0.18s var(--ease);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.format-tab:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.format-tab.active {
+  color: var(--text);
+  background: var(--bg-card);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+/* ─── Result area ─── */
+.result-area {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  min-height: 340px;
+  position: relative;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.result-empty,
+.result-loading,
+.result-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 340px;
+  padding: 48px 32px;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.result-empty .empty-icon {
+  width: 48px;
+  height: 48px;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+  opacity: 0.7;
+}
+
+.result-empty p {
+  font-size: 15px;
+  color: var(--text);
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.result-empty span {
+  font-size: 13px;
+  color: var(--text-muted);
+  max-width: 280px;
+  line-height: 1.45;
+}
+
+.result-loading .loader {
+  width: 26px;
+  height: 26px;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+  margin-bottom: 18px;
+}
+
+.result-loading p {
+  color: var(--text);
+  font-size: 14.5px;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.result-loading span {
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+
+.result-error p {
+  color: var(--error);
+  margin-bottom: 18px;
+  font-size: 14.5px;
+  max-width: 400px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.result-content {
+  padding: 22px 26px 32px;
+}
+
+.result-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.result-meta {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  font-weight: 450;
+  letter-spacing: 0.01em;
+}
+
+.result-meta .dot {
+  margin: 0 7px;
+  opacity: 0.5;
+}
+
+.result-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* ─── Result body content ─── */
+.result-body {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+.result-body h2 {
+  font-size: 18.5px;
+  font-weight: 600;
+  margin: 24px 0 12px;
+  letter-spacing: -0.025em;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.result-body h2:first-child {
+  margin-top: 0;
+}
+
+.result-body h3 {
+  font-size: 15.5px;
+  font-weight: 600;
+  margin: 20px 0 10px;
+  letter-spacing: -0.015em;
+  color: #d4d8e0;
+}
+
+.result-body p {
+  margin-bottom: 14px;
+  color: #c8cdd8;
+}
+
+.result-body ul,
+.result-body ol {
+  margin: 0 0 16px 1.3em;
+  color: #c8cdd8;
+}
+
+.result-body li {
+  margin-bottom: 7px;
+  padding-left: 2px;
+}
+
+.result-body strong {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.result-body .key-point {
+  background: var(--accent-muted);
+  border-left: 3px solid var(--accent);
+  padding: 12px 16px;
+  margin: 18px 0;
+  border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
+  font-size: 14px;
+  color: #c5d0e8;
+  line-height: 1.55;
+}
+
+.result-body .card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.result-body .info-card {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  transition: border-color 0.18s var(--ease);
+}
+
+.result-body .info-card:hover {
+  border-color: #323846;
+}
+
+.result-body .info-card h4 {
+  font-size: 13.5px;
+  font-weight: 600;
+  margin-bottom: 7px;
+  color: #8ba8ff;
+  letter-spacing: -0.01em;
+}
+
+.result-body .info-card p {
+  font-size: 13px;
+  margin: 0;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Mermaid */
+.mermaid-wrap {
+  background: #f7f8fa;
+  border-radius: var(--radius-sm);
+  padding: 24px 20px;
+  margin: 18px 0;
+  overflow-x: auto;
+  text-align: center;
+  border: 1px solid #e4e7ec;
+}
+
+.mermaid-wrap svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Tables */
+.viz-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 18px 0;
+  font-size: 13.5px;
+  background: var(--bg-input);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.viz-table th {
+  background: var(--bg-elevated);
+  padding: 11px 14px;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  font-size: 12.5px;
+  letter-spacing: 0.01em;
+}
+
+.viz-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+}
+
+.viz-table tr:last-child td {
+  border-bottom: none;
+}
+
+.viz-table tr:hover td {
+  background: rgba(255, 255, 255, 0.015);
+}
+
+/* Sequence */
+.sequence {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 18px 0;
+}
+
+.sequence-step {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.sequence-num {
+  width: 28px;
+  height: 28px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12.5px;
+  font-weight: 600;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(61, 111, 224, 0.3);
+}
+
+.sequence-content {
+  flex: 1;
+  padding-bottom: 20px;
+  border-left: 2px solid var(--border);
+  margin-left: -16px;
+  padding-left: 30px;
+  margin-top: 4px;
+}
+
+.sequence-step:last-child .sequence-content {
+  border-left-color: transparent;
+  padding-bottom: 0;
+}
+
+.sequence-content h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+
+.sequence-content p {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Audio player */
+.audio-player {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 26px;
+  margin: 8px 0;
+}
+
+.audio-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.audio-btn {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.18s var(--ease), transform 0.12s var(--ease);
+  box-shadow: 0 2px 8px rgba(61, 111, 224, 0.3);
+}
+
+.audio-btn:hover {
+  background: var(--accent-hover);
+}
+
+.audio-btn:active {
+  transform: scale(0.96);
+}
+
+.audio-btn.stop {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  width: 38px;
+  height: 38px;
+  font-size: 12px;
+  box-shadow: none;
+}
+
+.audio-btn.stop:hover {
+  color: var(--text);
+  border-color: #3a4150;
+}
+
+.speed-select {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: var(--radius-xs);
+  padding: 7px 12px;
+  font-size: 13px;
+  font-family: inherit;
+  margin-left: auto;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2.5 4.5L6 8L9.5 4.5' stroke='%238b93a7' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 28px;
+}
+
+.audio-text {
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  max-height: 240px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+/* Story */
+.story-block {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 26px;
+  margin: 8px 0;
+}
+
+.story-block .story-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 14px;
+  color: #8ba8ff;
+  letter-spacing: -0.015em;
+}
+
+/* Interactive / Quiz */
+.quiz-item {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 18px 20px;
+  margin-bottom: 14px;
+  transition: border-color 0.18s var(--ease);
+}
+
+.quiz-item:hover {
+  border-color: #2e3440;
+}
+
+.quiz-item .q-text {
+  font-weight: 550;
+  margin-bottom: 14px;
+  font-size: 14.5px;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  line-height: 1.45;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.quiz-option {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 11px 14px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  transition: border-color 0.15s var(--ease), background 0.15s var(--ease);
+  font-size: 13.5px;
+  color: var(--text-secondary);
+}
+
+.quiz-option:hover {
+  border-color: #3a4150;
+  color: var(--text);
+}
+
+.quiz-option.selected {
+  border-color: var(--accent);
+  background: var(--accent-muted);
+  color: var(--text);
+}
+
+.quiz-option.correct {
+  border-color: var(--success);
+  background: var(--success-bg);
+  color: var(--text);
+}
+
+.quiz-option.wrong {
+  border-color: var(--error);
+  background: var(--error-bg);
+  color: var(--text);
+}
+
+.quiz-option input {
+  accent-color: var(--accent);
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+.quiz-feedback {
+  margin-top: 12px;
+  font-size: 13px;
+  padding: 9px 12px;
+  border-radius: var(--radius-xs);
+  font-weight: 500;
+}
+
+.quiz-feedback.ok {
+  background: var(--success-bg);
+  color: var(--success);
+}
+
+.quiz-feedback.fail {
+  background: var(--error-bg);
+  color: var(--error);
+}
+
+.fill-blank input {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  color: var(--text);
+  padding: 5px 10px;
+  font-family: inherit;
+  font-size: 14px;
+  min-width: 130px;
+  transition: border-color 0.15s;
+}
+
+.fill-blank input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.check-answers-btn {
+  margin-top: 10px;
+}
+
+/* ─── Settings ─── */
+.settings-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  max-width: 540px;
+  box-shadow: var(--shadow-sm);
+}
+
+.settings-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.api-status {
+  font-size: 13px;
+  padding: 11px 14px;
+  border-radius: var(--radius-xs);
+  margin-bottom: 18px;
+  display: none;
+  font-weight: 500;
+}
+
+.api-status.show {
+  display: block;
+}
+
+.api-status.ok {
+  background: var(--success-bg);
+  color: var(--success);
+}
+
+.api-status.err {
+  background: var(--error-bg);
+  color: var(--error);
+}
+
+.provider-notes {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.provider-notes h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+
+.provider-notes ul {
+  margin: 0 0 14px 1.15em;
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.provider-notes li {
+  margin-bottom: 7px;
+}
+
+.provider-notes .note {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.hint {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 7px;
+  line-height: 1.45;
+}
+
+/* ─── About ─── */
+.about-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  max-width: 540px;
+  box-shadow: var(--shadow-sm);
+}
+
+.about-field {
+  margin-bottom: 18px;
+}
+
+.about-field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 550;
+  color: var(--text-secondary);
+  margin-bottom: 7px;
+  letter-spacing: 0.01em;
+}
+
+.about-field input,
+.about-field textarea {
+  width: 100%;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+  padding: 11px 14px;
+  transition: border-color 0.18s var(--ease), box-shadow 0.18s var(--ease);
+}
+
+.about-field input:focus,
+.about-field textarea:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.about-field textarea {
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.55;
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2a303c;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3a4150;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 860px) {
+  .app {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+    padding: 12px 16px;
+    border-right: none;
+    border-bottom: 1px solid var(--border-subtle);
+    gap: 12px;
+    overflow-x: auto;
+  }
+
+  .brand {
+    padding: 0;
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+
+  .brand-tag {
+    display: none;
+  }
+
+  .nav {
+    flex-direction: row;
+    gap: 4px;
+    flex: 1;
+  }
+
+  .nav-item {
+    padding: 8px 12px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .nav-item .nav-icon {
+    display: none;
+  }
+
+  .sidebar-footer {
+    display: none;
+  }
+
+  .main {
+    padding: 24px 18px 48px;
+  }
+
+  .workspace-header h1 {
+    font-size: 24px;
+  }
+
+  .input-panel {
+    padding: 18px 18px;
+  }
+
+  .controls-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .field-group.compact {
+    min-width: 100%;
+  }
+
+  .btn-primary {
+    width: 100%;
+  }
+
+  .format-tabs {
+    width: 100%;
+  }
+
+  .result-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .result-content {
+    padding: 18px 18px 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .workspace-header h1 {
+    font-size: 22px;
+  }
+
+  .format-tab {
+    padding: 7px 12px;
+    font-size: 12.5px;
+  }
+}
+
+/* Visual images */
+.viz-image-wrap {
+  margin: 16px 0 20px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--bg-input);
+  min-height: 180px;
+}
+
+.viz-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 360px;
+  object-fit: cover;
+  background: var(--bg-elevated);
+}
+
+.viz-block-title {
+  font-size: 14.5px !important;
+  font-weight: 600 !important;
+  color: var(--text-secondary) !important;
+  margin: 22px 0 10px !important;
+  letter-spacing: -0.01em;
+}
+
+/* Timeline */
+.timeline {
+  margin: 16px 0 24px;
+  padding-left: 8px;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 14px;
+  position: relative;
+  padding-bottom: 18px;
+}
+
+.timeline-item:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 14px;
+  bottom: 0;
+  width: 2px;
+  background: var(--border);
+}
+
+.timeline-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  margin-top: 4px;
+  box-shadow: 0 0 0 3px var(--accent-muted);
+}
+
+.timeline-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #8ba8ff;
+  margin-bottom: 3px;
+}
+
+.timeline-text {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Games */
+.game-block {
+  margin-bottom: 28px;
+  padding-bottom: 8px;
+}
+
+.game-title {
+  font-size: 15.5px !important;
+  font-weight: 600 !important;
+  margin: 0 0 8px !important;
+  color: var(--text) !important;
+}
+
+.game-hint {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.game-status {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--success);
+  font-weight: 500;
+  min-height: 20px;
+}
+
+/* Memory */
+.memory-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+}
+
+.memory-card {
+  position: relative;
+  height: 88px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-elevated);
+  cursor: pointer;
+  font-family: inherit;
+  color: var(--text);
+  padding: 0;
+  overflow: hidden;
+  transition: border-color 0.15s, transform 0.12s;
+}
+
+.memory-card:hover:not(.matched) {
+  border-color: #3a4150;
+}
+
+.memory-card .mc-back,
+.memory-card .mc-front {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  text-align: center;
+  font-size: 12.5px;
+  line-height: 1.35;
+  transition: opacity 0.2s;
+}
+
+.memory-card .mc-back {
+  font-size: 20px;
+  color: var(--text-muted);
+  background: var(--bg-elevated);
+}
+
+.memory-card .mc-front {
+  opacity: 0;
+  background: var(--bg-card);
+  font-weight: 500;
+}
+
+.memory-card.open .mc-back,
+.memory-card.matched .mc-back {
+  opacity: 0;
+}
+
+.memory-card.open .mc-front,
+.memory-card.matched .mc-front {
+  opacity: 1;
+}
+
+.memory-card.matched {
+  border-color: var(--success);
+  background: var(--success-bg);
+  cursor: default;
+}
+
+.memory-card.matched .mc-front {
+  background: transparent;
+  color: var(--text);
+}
+
+/* Flip cards */
+.flip-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.flip-card {
+  height: 130px;
+  perspective: 1000px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+}
+
+.flip-card.is-flipped .flip-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  text-align: center;
+  font-size: 13.5px;
+  line-height: 1.4;
+  font-weight: 500;
+  overflow: hidden;
+}
+
+.flip-face span {
+  display: block;
+  max-height: 100%;
+  overflow: auto;
+}
+
+.flip-front {
+  background: linear-gradient(165deg, #1c2433 0%, #141a24 100%);
+  color: var(--text);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+
+.flip-back {
+  background: linear-gradient(165deg, #243056 0%, #1a2440 100%);
+  color: #d4dff7;
+  border-color: rgba(77, 124, 255, 0.4);
+  transform: rotateY(180deg);
+}
+
+/* Match game */
+.match-board {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.match-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.match-item {
+  font-family: inherit;
+  font-size: 13.5px;
+  text-align: left;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, transform 0.12s, box-shadow 0.15s;
+  line-height: 1.4;
+}
+
+.match-item:hover:not(.done) {
+  border-color: #3a4150;
+  background: var(--bg-hover);
+}
+
+.match-item.active {
+  border-color: var(--accent);
+  background: var(--accent-muted);
+  box-shadow: 0 0 0 2px var(--accent-glow);
+}
+
+.match-item.done {
+  border-color: var(--success);
+  background: var(--success-bg);
+  color: var(--text);
+  cursor: default;
+  opacity: 0.9;
+}
+
+.match-item.wrong {
+  border-color: var(--error);
+  background: var(--error-bg);
+  animation: shake 0.35s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+.flip-card {
+  transition: transform 0.15s;
+}
+
+.flip-card:hover {
+  transform: translateY(-2px);
+}
+
+.flip-front {
+  background: linear-gradient(160deg, #1a2030 0%, #141820 100%);
+}
+
+.flip-back {
+  background: linear-gradient(160deg, rgba(77,124,255,0.18) 0%, rgba(77,124,255,0.08) 100%);
+}
+
+@media (max-width: 560px) {
+  .match-board {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* Interactive step UI */
+.ia-header {
+  margin-bottom: 18px;
+}
+
+.ia-header h2 {
+  margin-bottom: 12px;
+}
+
+.ia-steps {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 8px;
+}
+
+.ia-step-dot {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ia-step-dot.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.ia-step-dot.done {
+  background: var(--success-bg);
+  border-color: var(--success);
+  color: var(--success);
+}
+
+.ia-step-line {
+  width: 28px;
+  height: 2px;
+  background: var(--border);
+  margin: 0 4px;
+}
+
+.ia-step-line.done {
+  background: var(--success);
+}
+
+.ia-step-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.ia-body {
+  min-height: 160px;
+  margin-bottom: 20px;
+}
+
+.ia-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* Order game */
+.order-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 12px 12px 14px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: grab;
+  transition: border-color 0.15s, background 0.15s, transform 0.12s;
+  user-select: none;
+}
+
+.order-item:hover {
+  border-color: #3a4150;
+}
+
+.order-item.dragging {
+  opacity: 0.55;
+  border-color: var(--accent);
+}
+
+.order-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--accent-muted);
+  color: #8ba8ff;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.order-text {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.35;
+}
+
+.order-btns {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.order-btns button {
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 13px;
+  font-family: inherit;
+  transition: background 0.15s, color 0.15s;
+}
+
+.order-btns button:hover {
+  background: var(--bg-hover);
+  color: var(--text);
+}
+
+.flip-card:hover {
+  transform: none;
+}
+
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark"></div>
+        <div class="brand-text">
+          <span class="brand-name">Knowledge in Motion</span>
+          <span class="brand-tag">AI · образование</span>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <button class="nav-item active" data-view="workspace">
+          <span class="nav-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg>
+          </span>
+          Рабочая область
+        </button>
+        <button class="nav-item" data-view="settings">
+          <span class="nav-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="2.5"/><path d="M8 1.5v2M8 12.5v2M1.5 8h2M12.5 8h2M3.2 3.2l1.4 1.4M11.4 11.4l1.4 1.4M3.2 12.8l1.4-1.4M11.4 4.6l1.4-1.4"/></svg>
+          </span>
+          Настройки API
+        </button>
+        <button class="nav-item" data-view="about">
+          <span class="nav-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 7v4M8 5.2v.3"/></svg>
+          </span>
+          О проекте
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button id="editorModeBtn" class="btn-ghost small">🔒 Режим редактора</button>
+        <button id="clearCacheBtn" class="btn-ghost small">Очистить кэш</button>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+      <!-- Workspace -->
+      <section id="view-workspace" class="view active">
+        <header class="workspace-header">
+          <h1>Преобразование знаний</h1>
+          <p class="subtitle">Введите тему или материал — ИИ адаптирует его под выбранный формат и уровень</p>
+        </header>
+
+        <div class="input-panel">
+          <div class="field-group">
+            <label for="topicInput">Тема или вопрос</label>
+            <input type="text" id="topicInput" placeholder="Например: Фотосинтез, Теорема Пифагора, Гражданская война..." autocomplete="off">
+          </div>
+
+          <div class="field-group">
+            <label for="sourceText">Собственный текст / учебный материал <span class="optional">(необязательно)</span></label>
+            <textarea id="sourceText" rows="4" placeholder="Вставьте фрагмент учебника, конспект или любой текст для преобразования..."></textarea>
+          </div>
+
+          <div class="controls-row">
+            <div class="field-group compact">
+              <label for="levelSelect">Уровень / возраст</label>
+              <select id="levelSelect">
+                <option value="primary">Начальная школа (7–10 лет)</option>
+                <option value="middle" selected>Средняя школа (11–14 лет)</option>
+                <option value="high">Старшая школа (15–17 лет)</option>
+                <option value="university">ВУЗ / взрослые</option>
+                <option value="simple">Максимально просто</option>
+              </select>
+            </div>
+
+            <div class="field-group compact">
+              <label for="formatSelect">Формат подачи</label>
+              <select id="formatSelect">
+                <option value="text">Текст</option>
+                <option value="visual">Визуализация</option>
+                <option value="audio">Аудио</option>
+                <option value="story">История</option>
+                <option value="interactive">Интерактив</option>
+              </select>
+            </div>
+
+            <button id="generateBtn" class="btn-primary">
+              <span class="btn-label">Сгенерировать</span>
+              <span class="btn-spinner hidden"></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Format tabs -->
+        <div class="format-tabs" id="formatTabs">
+          <button class="format-tab active" data-format="text">Текст</button>
+          <button class="format-tab" data-format="visual">Визуализация</button>
+          <button class="format-tab" data-format="audio">Аудио</button>
+          <button class="format-tab" data-format="story">История</button>
+          <button class="format-tab" data-format="interactive">Интерактив</button>
+        </div>
+
+        <!-- Result area -->
+        <div class="result-area" id="resultArea">
+          <div class="result-empty" id="resultEmpty">
+            <div class="empty-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/><circle cx="12" cy="12" r="3.5"/></svg>
+            </div>
+            <p>Результат появится здесь</p>
+            <span>Введите тему и нажмите «Сгенерировать»</span>
+          </div>
+
+          <div class="result-content hidden" id="resultContent">
+            <div class="result-toolbar">
+              <div class="result-meta">
+                <span id="resultTopic"></span>
+                <span class="dot">·</span>
+                <span id="resultFormat"></span>
+                <span class="dot">·</span>
+                <span id="resultLevel"></span>
+              </div>
+              <div class="result-actions">
+                <button id="regenerateBtn" class="btn-secondary small" title="Новая вариация">Другая вариация</button>
+                <button id="convertBtn" class="btn-secondary small" title="В другой формат">В другой формат</button>
+                <button id="copyBtn" class="btn-ghost small">Копировать</button>
+              </div>
+            </div>
+            <div class="result-body" id="resultBody"></div>
+          </div>
+
+          <div class="result-loading hidden" id="resultLoading">
+            <div class="loader"></div>
+            <p>Генерация материала...</p>
+            <span id="loadingHint">Адаптируем под выбранный уровень</span>
+          </div>
+
+          <div class="result-error hidden" id="resultError">
+            <p id="errorMessage">Произошла ошибка</p>
+            <button id="retryBtn" class="btn-secondary">Повторить</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Settings -->
+      <section id="view-settings" class="view">
+        <header class="workspace-header">
+          <h1>Настройки API</h1>
+          <p class="subtitle">Подключите бесплатный или собственный AI-провайдер. Ключ сохраняется только локально.</p>
+        </header>
+
+        <div class="settings-card">
+          <div class="field-group">
+            <label for="providerSelect">Провайдер</label>
+            <select id="providerSelect">
+              <option value="groq">Groq (быстрый, бесплатный тариф)</option>
+              <option value="openrouter">OpenRouter (модели :free)</option>
+              <option value="gemini">Google Gemini (AI Studio)</option>
+              <option value="custom">Свой endpoint (OpenAI-совместимый)</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label for="apiKeyInput">API-ключ</label>
+            <input type="password" id="apiKeyInput" placeholder="Вставьте ключ один раз — он сохранится в браузере">
+            <p class="hint">Ключ хранится только в localStorage вашего браузера и не передаётся никуда, кроме выбранного API.</p>
+          </div>
+
+          <div class="field-group hidden" id="customEndpointGroup">
+            <label for="customEndpoint">Base URL</label>
+            <input type="text" id="customEndpoint" placeholder="https://api.example.com/v1">
+          </div>
+
+          <div class="field-group">
+            <label for="modelInput">Модель (опционально)</label>
+            <input type="text" id="modelInput" placeholder="Оставьте пустым для модели по умолчанию">
+          </div>
+
+          <div class="settings-actions">
+            <button id="saveSettingsBtn" class="btn-primary">Сохранить</button>
+            <button id="testApiBtn" class="btn-secondary">Проверить соединение</button>
+          </div>
+
+          <div id="apiStatus" class="api-status"></div>
+
+          <div class="provider-notes">
+            <h3>Как получить бесплатный ключ</h3>
+            <ul>
+              <li><strong>Groq</strong> — console.groq.com → API Keys (быстрая генерация, хорошие лимиты)</li>
+              <li><strong>OpenRouter</strong> — openrouter.ai → Keys, модели с суффиксом :free</li>
+              <li><strong>Gemini</strong> — aistudio.google.com → Get API key (без карты)</li>
+            </ul>
+            <p class="note">Без ключа приложение работает в демо-режиме с ограниченными примерами. Для реальной генерации по любым темам необходим ключ.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- About -->
+      <section id="view-about" class="view">
+        <header class="workspace-header">
+          <h1>О проекте</h1>
+        </header>
+
+        <div class="about-card" id="aboutCard">
+          <div class="about-field">
+            <label>Название проекта</label>
+            <input type="text" id="aboutTitle" value="Knowledge in Motion" disabled>
+          </div>
+          <div class="about-field">
+            <label>Краткое описание</label>
+            <textarea id="aboutDesc" rows="4" disabled>Интерактивное приложение, которое преобразует любой учебный материал в разные форматы подачи: текст, визуализации, аудио, истории и интерактивные задания. Пользователь может свободно переключаться между способами восприятия одной и той же темы.</textarea>
+          </div>
+          <div class="about-field">
+            <label>Авторы</label>
+            <input type="text" id="aboutAuthors" value="Джуманазарова Алина; Ашимова Регина" disabled>
+          </div>
+          <div class="about-field">
+            <label>Руководитель</label>
+            <input type="text" id="aboutSupervisor" value="Кожамбердиева Дилназ Талатовна" disabled>
+          </div>
+          <div class="about-field">
+            <label>Учебное заведение</label>
+            <input type="text" id="aboutInstitution" value="" disabled>
+          </div>
+          <p class="hint" id="aboutEditorHint">Данные проекта доступны для просмотра. Редактирование — только в режиме редактора.</p>
+          <button id="saveAboutBtn" class="btn-primary hidden">Сохранить данные о проекте</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+/**
+ * AI Module — Knowledge in Motion
+ * Абстракция над провайдерами LLM.
+ * Поддерживает: Groq, OpenRouter, Gemini (OpenAI-совместимый), custom endpoint.
+ * Ключ хранится только в localStorage.
+ */
+
+const AI = (() => {
+  const STORAGE_KEY = 'kim_ai_settings';
+  const CACHE_KEY = 'kim_content_cache';
+  const CACHE_MAX = 40;
+
+  const DEFAULTS = {
+    provider: 'groq',
+    apiKey: '',
+    model: '',
+    customEndpoint: ''
+  };
+
+  const PROVIDER_CONFIG = {
+    groq: {
+      baseUrl: 'https://api.groq.com/openai/v1',
+      defaultModel: 'openai/gpt-oss-120b',
+      header: (key) => ({ Authorization: `Bearer ${key}` })
+    },
+    openrouter: {
+      baseUrl: 'https://openrouter.ai/api/v1',
+      defaultModel: 'google/gemma-2-9b-it:free',
+      header: (key) => ({
+        Authorization: `Bearer ${key}`,
+        'HTTP-Referer': window.location.origin || 'https://knowledge-in-motion.local',
+        'X-Title': 'Knowledge in Motion'
+      })
+    },
+    gemini: {
+      baseUrl: 'https://generativelanguage.googleapis.com/v1beta/openai',
+      defaultModel: 'gemini-2.0-flash',
+      header: (key) => ({ Authorization: `Bearer ${key}` })
+    },
+    custom: {
+      baseUrl: '',
+      defaultModel: 'gpt-4o-mini',
+      header: (key) => ({ Authorization: `Bearer ${key}` })
+    }
+  };
+
+  function loadSettings() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) return { ...DEFAULTS, ...JSON.parse(raw) };
+    } catch (_) {}
+    return { ...DEFAULTS };
+  }
+
+  function saveSettings(settings) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
+  }
+
+  function getSettings() {
+    return loadSettings();
+  }
+
+  /* ---------- Cache ---------- */
+  function loadCache() {
+    try {
+      return JSON.parse(localStorage.getItem(CACHE_KEY) || '{}');
+    } catch (_) {
+      return {};
+    }
+  }
+
+  function saveCache(cache) {
+    const keys = Object.keys(cache);
+    if (keys.length > CACHE_MAX) {
+      const sorted = keys.sort((a, b) => (cache[a].ts || 0) - (cache[b].ts || 0));
+      sorted.slice(0, keys.length - CACHE_MAX).forEach(k => delete cache[k]);
+    }
+    localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
+  }
+
+  function cacheKey(topic, level, format, variation = 0) {
+    return `${topic.trim().toLowerCase()}|${level}|${format}|v${variation}`;
+  }
+
+  function getCached(topic, level, format, variation = 0) {
+    const cache = loadCache();
+    return cache[cacheKey(topic, level, format, variation)] || null;
+  }
+
+  function setCached(topic, level, format, variation, content) {
+    const cache = loadCache();
+    cache[cacheKey(topic, level, format, variation)] = { content, ts: Date.now() };
+    saveCache(cache);
+  }
+
+  function clearCache() {
+    localStorage.removeItem(CACHE_KEY);
+  }
+
+  /* ---------- Prompt builders ---------- */
+  const LEVEL_HINTS = {
+    primary: 'Объясняй очень просто, короткими предложениями, как для детей 7–10 лет. Используй знакомые примеры из жизни. Без сложных терминов или сразу объясняй их.',
+    middle: 'Уровень средней школы (11–14 лет). Понятный язык, конкретные примеры, лёгкая структура.',
+    high: 'Старшая школа (15–17 лет). Можно использовать термины, но объясняй их. Более глубокие связи и примеры.',
+    university: 'Уровень вуза / взрослых. Точные формулировки, структура, важные нюансы и контекст.',
+    simple: 'Максимально просто и доступно, как будто объясняешь человеку, который впервые слышит об этой теме.'
+  };
+
+  function buildSystemPrompt(format, level) {
+    const levelHint = LEVEL_HINTS[level] || LEVEL_HINTS.middle;
+    const base = `Ты — образовательный ИИ-ассистент приложения Knowledge in Motion.
+Твоя задача: преобразовать тему или текст в выбранный формат подачи, сохраняя смысл.
+${levelHint}
+Отвечай на русском языке, если тема не требует иного.
+Будь точным, полезным и структурированным. Не добавляй лишних вступлений вроде «Конечно!» или «Вот объяснение».`;
+
+    const formatInstructions = {
+      text: `Формат: структурированный учебный текст.
+- Краткое введение (1–2 предложения)
+- Определения ключевых понятий
+- Основные идеи с примерами
+- Выдели ключевые мысли (можно помечать **жирным**)
+- В конце — краткий итог
+Используй markdown: заголовки ##, ###, списки, **жирный**.`,
+
+      visual: `Формат: визуализация темы. Верни ТОЛЬКО валидный JSON без markdown-обёрток.
+Структура:
+{
+  "title": "название",
+  "blocks": [
+    {
+      "kind": "image" | "flowchart" | "table" | "cards" | "sequence" | "timeline",
+      "title": "подзаголовок блока",
+      "prompt": "English prompt for educational illustration, simple flat vector style, no text in image",
+      "mermaid": "flowchart TD\\n  A[Step1] --> B[Step2]",
+      "table": { "headers": [], "rows": [] },
+      "cards": [{ "title": "", "text": "" }],
+      "sequence": [{ "title": "", "text": "" }],
+      "timeline": [{ "label": "возраст/этап", "text": "описание" }]
+    }
+  ]
+}
+
+Правила:
+- Сделай 2–4 блока разных kind, чтобы тема раскрывалась богато.
+- Обязательно включи хотя бы один block kind "image" с понятным English prompt (иллюстрация/схема/метафора темы, clean educational style, soft colors).
+- Для flowchart: ТОЛЬКО flowchart TD или LR, ID латиницей, подписи в [], стрелки -->, без style/classDef, не больше 8 узлов.
+- timeline — для возрастных/исторических/процессных тем.
+- cards — ключевые понятия.
+- table — сравнения.
+Не пиши ничего вне JSON.`,
+
+      audio: `Формат: текст для озвучивания.
+Напиши связный, разговорный текст на 1–2 минуты чтения вслух.
+Короткие предложения, естественные паузы.
+Без markdown, без списков с маркерами — только обычный текст, который хорошо звучит голосом.
+Можно разбить на абзацы.`,
+
+      story: `Формат: объяснение через историю / сюжет / метафору.
+Придумай короткую историю, персонажей или жизненную ситуацию, через которую раскрывается тема.
+История должна быть запоминающейся и точно передавать суть материала.
+В конце коротко зафиксируй, чему учит история (1–2 предложения).
+Используй markdown для заголовков.`,
+
+      interactive: `Верни ТОЛЬКО валидный JSON без markdown и без текста вокруг.
+{
+  "title": "Короткое название",
+  "flip": [
+    { "term": "Термин 1", "def": "Краткое объяснение 1" },
+    { "term": "Термин 2", "def": "Краткое объяснение 2" },
+    { "term": "Термин 3", "def": "Краткое объяснение 3" },
+    { "term": "Термин 4", "def": "Краткое объяснение 4" },
+    { "term": "Термин 5", "def": "Краткое объяснение 5" },
+    { "term": "Термин 6", "def": "Краткое объяснение 6" }
+  ],
+  "match": [
+    { "left": "Понятие A", "right": "Определение A" },
+    { "left": "Понятие B", "right": "Определение B" },
+    { "left": "Понятие C", "right": "Определение C" },
+    { "left": "Понятие D", "right": "Определение D" },
+    { "left": "Понятие E", "right": "Определение E" }
+  ],
+  "quiz": [
+    { "q": "Вопрос 1?", "options": ["в1","в2","в3","в4"], "correct": 0 },
+    { "q": "Вопрос 2?", "options": ["в1","в2","в3","в4"], "correct": 1 },
+    { "q": "Вопрос 3?", "options": ["в1","в2","в3","в4"], "correct": 2 }
+  ],
+  "order": {
+    "title": "Расставь в правильном порядке",
+    "hint": "Подсказка что означает порядок (хронология, логика, грамматика и т.д.)",
+    "items": ["элемент1", "элемент2", "элемент3", "элемент4", "элемент5"]
+  }
+}
+Правила:
+- flip: 6 карточек, term спереди, def сзади
+- match: 5 пар left/right для соединения
+- quiz: 3 теста, correct = индекс 0-3
+- order: 4–6 элементов в УЖЕ правильном порядке (приложение перемешает). Подходит для: этапы возраста, шаги процесса, слова в предложении, хронология, иерархия от простого к сложному
+- Всё на русском по теме. Никаких других полей.`
+    };
+
+    return base + '\n\n' + (formatInstructions[format] || formatInstructions.text);
+  }
+
+  function buildUserPrompt(topic, sourceText, format, variation) {
+    let prompt = `Тема: ${topic}`;
+    if (sourceText && sourceText.trim()) {
+      prompt += `\n\nИсходный материал для преобразования:\n${sourceText.trim().slice(0, 6000)}`;
+    }
+    if (variation > 0) {
+      prompt += `\n\nСгенерируй другую вариацию объяснения (вариант ${variation + 1}). Измени подход, примеры или структуру, сохранив точность.`;
+    }
+    return prompt;
+  }
+
+  /* ---------- API call ---------- */
+  async function chat(messages, settings) {
+    const cfg = PROVIDER_CONFIG[settings.provider] || PROVIDER_CONFIG.groq;
+    const baseUrl = settings.provider === 'custom'
+      ? (settings.customEndpoint || '').replace(/\/$/, '')
+      : cfg.baseUrl;
+    const model = settings.model || cfg.defaultModel;
+
+    if (!settings.apiKey) {
+      throw new Error('NO_KEY');
+    }
+    if (!baseUrl) {
+      throw new Error('Не указан Base URL для custom-провайдера');
+    }
+
+    const headers = {
+      'Content-Type': 'application/json',
+      ...cfg.header(settings.apiKey)
+    };
+
+    const body = {
+      model,
+      messages,
+      temperature: 0.65,
+      max_tokens: 4096
+    };
+
+    const res = await fetch(`${baseUrl}/chat/completions`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(body)
+    });
+
+    if (!res.ok) {
+      const errText = await res.text().catch(() => '');
+      let msg = `Ошибка API (${res.status})`;
+      try {
+        const j = JSON.parse(errText);
+        msg = j.error?.message || j.message || msg;
+      } catch (_) {
+        if (errText) msg += ': ' + errText.slice(0, 200);
+      }
+      throw new Error(msg);
+    }
+
+    const data = await res.json();
+    const content = data.choices?.[0]?.message?.content;
+    if (!content) throw new Error('Пустой ответ от модели');
+    return content.trim();
+  }
+
+  /* ---------- Demo fallback ---------- */
+  function demoResponse(topic, format, level) {
+    const demos = {
+      text: `## ${topic}\n\n**Кратко.** Это демонстрационный ответ. Подключите API-ключ в настройках, чтобы получать реальные объяснения по любой теме.\n\n### Основные идеи\n- Идея 1: ключевое понятие объясняется просто.\n- Идея 2: приводится понятный пример.\n- Идея 3: показывается связь с жизнью.\n\n<div class="key-point">Запомните: смысл материала сохраняется при любом формате подачи.</div>\n\n### Итог\nПосле подключения ключа приложение сможет генерировать полноценные материалы под выбранный уровень.`,
+
+      visual: JSON.stringify({
+        title: topic,
+        type: 'flowchart',
+        mermaid: `flowchart TD\n  A[${topic}] --> B[Основные понятия]\n  B --> C[Примеры]\n  B --> D[Применение]\n  C --> E[Запоминание]\n  D --> E`
+      }, null, 0),
+
+      audio: `Сегодня мы разберём тему «${topic}». Это демонстрационный текст для озвучивания. После подключения API-ключа здесь появится связное объяснение, которое удобно слушать. Вы сможете запускать, ставить на паузу и менять скорость воспроизведения. Материал будет адаптирован под выбранный уровень сложности.`,
+
+      story: `## История про «${topic}»\n\nЖил-был любознательный ученик, который никак не мог понять, что такое ${topic}. Однажды он встретил мудрого наставника. Тот не стал сыпать определениями, а рассказал историю...\n\n*(Это демо. С API-ключом здесь появится настоящая история, через которую тема запомнится лучше.)*\n\n**Чему учит история:** смысл легче удерживать, когда он облечён в сюжет.`,
+
+      interactive: JSON.stringify({
+        title: topic,
+        flip: [
+          { term: 'Тема', def: topic },
+          { term: 'Формат', def: 'Интерактивные задания' },
+          { term: 'Цель', def: 'Запомнить материал через игру' },
+          { term: 'Карточка', def: 'Термин с одной стороны, объяснение с другой' },
+          { term: 'Соединение', def: 'Связать понятие с определением' },
+          { term: 'Квиз', def: 'Вопрос с вариантами ответа' }
+        ],
+        match: [
+          { left: 'Knowledge in Motion', right: 'Приложение для разных форматов обучения' },
+          { left: 'Flip-карточки', right: 'Переворот термина и определения' },
+          { left: 'Match', right: 'Соединение двух колонок' },
+          { left: 'API', right: 'Подключение языковой модели' },
+          { left: 'Кэш', right: 'Сохранение уже сгенерированных ответов' }
+        ],
+        quiz: [
+          { q: 'Для чего нужно приложение Knowledge in Motion?', options: ['Только тесты', 'Разные форматы изучения одной темы', 'Только аудио', 'Только таблицы'], correct: 1 },
+          { q: 'Что на обратной стороне flip-карточки?', options: ['Пусто', 'Картинка', 'Объяснение термина', 'Номер'], correct: 2 },
+          { q: 'Как сохранить API-ключ?', options: ['Вводить каждый раз', 'Один раз в настройках', 'Нельзя', 'Только в облаке'], correct: 1 }
+        ],
+        order: {
+          title: 'Этапы работы с материалом',
+          hint: 'От первого шага к последнему',
+          items: ['Ввести тему', 'Выбрать формат', 'Сгенерировать', 'Изучить', 'Пройти игру']
+        }
+      }, null, 0)
+    };
+    return demos[format] || demos.text;
+  }
+
+  /* ---------- Public API ---------- */
+  async function generate({ topic, sourceText, level, format, variation = 0, force = false }) {
+    if (!topic || !topic.trim()) {
+      throw new Error('Укажите тему');
+    }
+
+    if (!force) {
+      const cached = getCached(topic, level, format, variation);
+      if (cached) return { content: cached.content, fromCache: true };
+    }
+
+    const settings = loadSettings();
+    let content;
+
+    try {
+      if (!settings.apiKey) {
+        content = demoResponse(topic, format, level);
+      } else {
+        const system = buildSystemPrompt(format, level);
+        const user = buildUserPrompt(topic, sourceText, format, variation);
+        content = await chat([
+          { role: 'system', content: system },
+          { role: 'user', content: user }
+        ], settings);
+      }
+    } catch (e) {
+      if (e.message === 'NO_KEY') {
+        content = demoResponse(topic, format, level);
+      } else {
+        throw e;
+      }
+    }
+
+    setCached(topic, level, format, variation, content);
+    return { content, fromCache: false };
+  }
+
+  async function testConnection() {
+    const settings = loadSettings();
+    if (!settings.apiKey) {
+      return { ok: false, message: 'Ключ не задан' };
+    }
+    try {
+      const reply = await chat([
+        { role: 'user', content: 'Ответь одним словом: OK' }
+      ], settings);
+      return { ok: true, message: 'Соединение успешно. Ответ: ' + reply.slice(0, 40) };
+    } catch (e) {
+      return { ok: false, message: e.message };
+    }
+  }
+
+  return {
+    getSettings,
+    saveSettings,
+    generate,
+    testConnection,
+    clearCache,
+    getCached
+  };
+})();
+
+
+/**
+ * Knowledge in Motion — main application logic
+ */
+
+(function () {
+  'use strict';
+
+  // Prevent Mermaid auto-render errors on the page
+  if (typeof mermaid !== 'undefined') {
+    try {
+      mermaid.initialize({ startOnLoad: false, theme: 'neutral', securityLevel: 'loose' });
+    } catch (e) {}
+  }
+
+  // State
+  let currentTopic = '';
+  let currentSource = '';
+  let currentLevel = 'middle';
+  let currentFormat = 'text';
+  let currentVariation = 0;
+  let lastContent = null;
+  let speechUtterance = null;
+  let isSpeaking = false;
+
+  // DOM
+  const $ = (sel) => document.querySelector(sel);
+  const $$ = (sel) => document.querySelectorAll(sel);
+
+  const topicInput = $('#topicInput');
+  const sourceText = $('#sourceText');
+  const levelSelect = $('#levelSelect');
+  const formatSelect = $('#formatSelect');
+  const generateBtn = $('#generateBtn');
+  const resultArea = $('#resultArea');
+  const resultEmpty = $('#resultEmpty');
+  const resultContent = $('#resultContent');
+  const resultBody = $('#resultBody');
+  const resultLoading = $('#resultLoading');
+  const resultError = $('#resultError');
+  const errorMessage = $('#errorMessage');
+  const resultTopic = $('#resultTopic');
+  const resultFormat = $('#resultFormat');
+  const resultLevel = $('#resultLevel');
+
+  const formatLabels = {
+    text: 'Текст',
+    visual: 'Визуализация',
+    audio: 'Аудио',
+    story: 'История',
+    interactive: 'Интерактив'
+  };
+
+  const levelLabels = {
+    primary: 'Начальная школа',
+    middle: 'Средняя школа',
+    high: 'Старшая школа',
+    university: 'ВУЗ / взрослые',
+    simple: 'Максимально просто'
+  };
+
+  /* ---------- Navigation ---------- */
+  let editorMode = false;
+  // Local UI gate. This is a convenience lock, not server-side security.
+  const EDITOR_PIN = 'KIM2026!';
+  function setEditorMode(enabled) {
+    editorMode = !!enabled;
+    const btn = $('#editorModeBtn');
+    if (btn) btn.textContent = editorMode ? '🔓 Выйти из редактора' : '🔒 Режим редактора';
+    ['aboutTitle','aboutDesc','aboutAuthors','aboutSupervisor','aboutInstitution'].forEach(id => {
+      const el = $('#' + id); if (el) el.disabled = !editorMode;
+    });
+    $('#saveAboutBtn')?.classList.toggle('hidden', !editorMode);
+    $('#aboutEditorHint')?.classList.toggle('hidden', editorMode);
+  }
+  function enterEditor() {
+    if (editorMode) return true;
+    const pin = prompt('Введите пароль редактора:');
+    if (pin === EDITOR_PIN) { setEditorMode(true); return true; }
+    if (pin !== null) alert('Неверный пароль.');
+    return false;
+  }
+  $('#editorModeBtn')?.addEventListener('click', () => {
+    if (editorMode) { setEditorMode(false); $('#view-settings')?.classList.remove('active'); $('#view-about')?.classList.remove('active'); $('#view-workspace')?.classList.add('active'); $$('.nav-item').forEach(b => b.classList.remove('active')); $('[data-view=workspace]')?.classList.add('active'); alert('Режим редактора выключен.'); }
+    else enterEditor();
+  });
+  $$('.nav-item').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const view = btn.dataset.view;
+      if (view === 'settings' && !enterEditor()) return;
+      $$('.nav-item').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      $$('.view').forEach(v => v.classList.remove('active'));
+      $(`#view-${view}`).classList.add('active');
+    });
+  });
+
+  /* ---------- Format tabs ---------- */
+  $$('.format-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const fmt = tab.dataset.format;
+      setActiveFormat(fmt);
+      if (currentTopic && lastContent) {
+        // Switch format without re-entering topic
+        currentFormat = fmt;
+        formatSelect.value = fmt;
+        currentVariation = 0;
+        runGenerate(false);
+      }
+    });
+  });
+
+  function setActiveFormat(fmt) {
+    currentFormat = fmt;
+    $$('.format-tab').forEach(t => {
+      t.classList.toggle('active', t.dataset.format === fmt);
+    });
+    formatSelect.value = fmt;
+  }
+
+  formatSelect.addEventListener('change', () => {
+    setActiveFormat(formatSelect.value);
+  });
+
+  /* ---------- Generate ---------- */
+  generateBtn.addEventListener('click', () => {
+    currentTopic = topicInput.value.trim();
+    currentSource = sourceText.value.trim();
+    currentLevel = levelSelect.value;
+    currentFormat = formatSelect.value;
+    currentVariation = 0;
+    runGenerate(false);
+  });
+
+  $('#regenerateBtn')?.addEventListener('click', () => {
+    currentVariation += 1;
+    runGenerate(true);
+  });
+
+  $('#convertBtn')?.addEventListener('click', () => {
+    // Cycle to next format
+    const order = ['text', 'visual', 'audio', 'story', 'interactive'];
+    const idx = order.indexOf(currentFormat);
+    const next = order[(idx + 1) % order.length];
+    setActiveFormat(next);
+    currentVariation = 0;
+    runGenerate(false);
+  });
+
+  $('#retryBtn')?.addEventListener('click', () => {
+    runGenerate(true);
+  });
+
+  $('#copyBtn')?.addEventListener('click', () => {
+    const text = resultBody.innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = $('#copyBtn');
+      const old = btn.textContent;
+      btn.textContent = 'Скопировано';
+      setTimeout(() => { btn.textContent = old; }, 1500);
+    });
+  });
+
+  $('#clearCacheBtn')?.addEventListener('click', () => {
+    AI.clearCache();
+    alert('Кэш очищен');
+  });
+
+  async function runGenerate(force) {
+    if (!currentTopic) {
+      showError('Введите тему или вопрос');
+      return;
+    }
+
+    showLoading();
+    stopSpeech();
+
+    try {
+      const { content, fromCache } = await AI.generate({
+        topic: currentTopic,
+        sourceText: currentSource,
+        level: currentLevel,
+        format: currentFormat,
+        variation: currentVariation,
+        force
+      });
+
+      lastContent = content;
+      renderResult(content, fromCache);
+    } catch (err) {
+      console.error(err);
+      showError(err.message || 'Ошибка генерации');
+    }
+  }
+
+  function showLoading() {
+    resultEmpty.classList.add('hidden');
+    resultContent.classList.add('hidden');
+    resultError.classList.add('hidden');
+    resultLoading.classList.remove('hidden');
+    generateBtn.disabled = true;
+    $('.btn-label', generateBtn).textContent = 'Генерация...';
+    $('.btn-spinner', generateBtn).classList.remove('hidden');
+
+    const hints = [
+      'Адаптируем под выбранный уровень',
+      'Структурируем материал',
+      'Подбираем примеры',
+      'Формируем формат подачи'
+    ];
+    $('#loadingHint').textContent = hints[Math.floor(Math.random() * hints.length)];
+  }
+
+  function showError(msg) {
+    resultEmpty.classList.add('hidden');
+    resultContent.classList.add('hidden');
+    resultLoading.classList.add('hidden');
+    resultError.classList.remove('hidden');
+    errorMessage.textContent = msg;
+    resetGenerateBtn();
+  }
+
+  function resetGenerateBtn() {
+    generateBtn.disabled = false;
+    $('.btn-label', generateBtn).textContent = 'Сгенерировать';
+    $('.btn-spinner', generateBtn).classList.add('hidden');
+  }
+
+  function renderResult(content, fromCache) {
+    resultEmpty.classList.add('hidden');
+    resultLoading.classList.add('hidden');
+    resultError.classList.add('hidden');
+    resultContent.classList.remove('hidden');
+    resetGenerateBtn();
+
+    resultTopic.textContent = currentTopic;
+    resultFormat.textContent = formatLabels[currentFormat] || currentFormat;
+    resultLevel.textContent = levelLabels[currentLevel] || currentLevel;
+    if (fromCache) {
+      resultLevel.textContent += ' · из кэша';
+    }
+
+    resultBody.innerHTML = '';
+    try {
+      switch (currentFormat) {
+        case 'text':
+        case 'story':
+          resultBody.innerHTML = renderMarkdown(content);
+          break;
+        case 'visual':
+          renderVisual(content);
+          break;
+        case 'audio':
+          renderAudio(content);
+          break;
+        case 'interactive':
+          renderInteractive(content);
+          break;
+        default:
+          resultBody.innerHTML = renderMarkdown(content);
+      }
+    } catch (e) {
+      console.error('Render error', e);
+      resultBody.innerHTML = `<p>Не удалось отобразить результат. Сырой ответ:</p><pre style="white-space:pre-wrap;font-size:13px;color:var(--text-secondary)">${escapeHtml(content)}</pre>`;
+    }
+  }
+
+  /* ---------- Render helpers ---------- */
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function renderMarkdown(md) {
+    // Lightweight markdown → HTML
+    let html = escapeHtml(md);
+    html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+    html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+    html = html.replace(/^# (.+)$/gm, '<h2>$1</h2>');
+    html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
+    html = html.replace(/^- (.+)$/gm, '<li>$1</li>');
+    html = html.replace(/(<li>.*<\/li>\n?)+/g, m => `<ul>${m}</ul>`);
+    html = html.replace(/^\d+\. (.+)$/gm, '<li>$1</li>');
+    html = html.replace(/\n\n/g, '</p><p>');
+    html = html.replace(/\n/g, '<br>');
+    html = `<p>${html}</p>`;
+    html = html.replace(/<p><h/g, '<h').replace(/<\/h([1-6])><\/p>/g, '</h$1>');
+    html = html.replace(/<p><ul>/g, '<ul>').replace(/<\/ul><\/p>/g, '</ul>');
+    // key-point support
+    html = html.replace(/&lt;div class="key-point"&gt;(.+?)&lt;\/div&gt;/gs, '<div class="key-point">$1</div>');
+    return html;
+  }
+
+  function parseJsonLoose(raw) {
+    let cleaned = (raw || '').trim();
+    if (cleaned.startsWith('```')) {
+      cleaned = cleaned.replace(/^```(?:json)?\n?/i, '').replace(/\n?```$/i, '');
+    }
+    const start = cleaned.indexOf('{');
+    const end = cleaned.lastIndexOf('}');
+    if (start >= 0 && end > start) cleaned = cleaned.slice(start, end + 1);
+    return JSON.parse(cleaned);
+  }
+
+
+
+  function renderVisual(raw) {
+    let data;
+    try {
+      data = parseJsonLoose(raw);
+    } catch (_) {
+      resultBody.innerHTML = `<div class="card-grid"><div class="info-card"><h4>Визуализация</h4><p>${escapeHtml(String(raw).slice(0, 400))}</p></div></div>`;
+      return;
+    }
+
+    let html = '';
+    if (data.title) html += `<h2>${escapeHtml(data.title)}</h2>`;
+
+    const blocks = Array.isArray(data.blocks) ? data.blocks : [data];
+
+    blocks.forEach((block, bi) => {
+      const kind = block.kind || block.type || '';
+      if (block.title && kind) {
+        html += `<h3 class="viz-block-title">${escapeHtml(block.title)}</h3>`;
+      }
+
+      if (kind === 'image' || block.prompt || block.searchQuery) {
+        const query = block.searchQuery || block.title || data.title || currentTopic;
+        const imageId = `viz-search-${bi}-${Date.now()}`;
+        html += `<div class="viz-image-wrap" id="${imageId}" data-image-query="${escapeHtml(query).replace(/\"/g, '&quot;')}">
+          <div class="info-card"><p>Ищем подходящую иллюстрацию в интернете…</p></div>
+        </div>`;
+      }
+
+      if ((kind === 'flowchart' || block.mermaid) && block.mermaid) {
+        html += `<div class="mermaid-wrap" data-mmd="${escapeHtml(block.mermaid).replace(/"/g, '&quot;')}"></div>`;
+      }
+
+      if ((kind === 'table' || block.table) && block.table) {
+        html += renderTable(block.table);
+      }
+
+      if ((kind === 'cards' || block.cards) && block.cards) {
+        html += '<div class="card-grid">';
+        block.cards.forEach(c => {
+          html += `<div class="info-card"><h4>${escapeHtml(c.title || '')}</h4><p>${escapeHtml(c.text || '')}</p></div>`;
+        });
+        html += '</div>';
+      }
+
+      if ((kind === 'sequence' || block.sequence) && block.sequence) {
+        html += '<div class="sequence">';
+        block.sequence.forEach((s, i) => {
+          html += `<div class="sequence-step">
+            <div class="sequence-num">${i + 1}</div>
+            <div class="sequence-content"><h4>${escapeHtml(s.title || '')}</h4><p>${escapeHtml(s.text || '')}</p></div>
+          </div>`;
+        });
+        html += '</div>';
+      }
+
+      if ((kind === 'timeline' || block.timeline) && block.timeline) {
+        html += '<div class="timeline">';
+        block.timeline.forEach((t, i) => {
+          html += `<div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-body">
+              <div class="timeline-label">${escapeHtml(t.label || String(i + 1))}</div>
+              <div class="timeline-text">${escapeHtml(t.text || '')}</div>
+            </div>
+          </div>`;
+        });
+        html += '</div>';
+      }
+    });
+
+    // Legacy single-object support
+    if (!data.blocks) {
+      if (data.mermaid) html += `<div class="mermaid-wrap" data-mmd="${escapeHtml(data.mermaid).replace(/"/g, '&quot;')}"></div>`;
+      if (data.table) html += renderTable(data.table);
+      if (data.cards) {
+        html += '<div class="card-grid">';
+        data.cards.forEach(c => {
+          html += `<div class="info-card"><h4>${escapeHtml(c.title || '')}</h4><p>${escapeHtml(c.text || '')}</p></div>`;
+        });
+        html += '</div>';
+      }
+    }
+
+    if (!html.trim()) {
+      html = `<div class="card-grid"><div class="info-card"><h4>${escapeHtml(data.title || 'Тема')}</h4><p>Структура визуализации получена. Нажмите «Другая вариация» для нового варианта.</p></div></div>`;
+    }
+
+    resultBody.innerHTML = html;
+    runMermaid();
+    searchVisualImages();
+  }
+
+  // Поиск настоящих тематических изображений через Wikimedia Commons API.
+  // Если поиск не находит подходящего материала, случайные картинки не подставляются.
+  async function searchVisualImages() {
+    const wraps = [...resultBody.querySelectorAll('[data-image-query]')];
+    for (const wrap of wraps) {
+      const query = (wrap.dataset.imageQuery || '').trim();
+      if (!query) { wrap.remove(); continue; }
+      // Search by the actual topic/title, not by an AI illustration prompt.
+      const queries = [...new Set([
+        query,
+        currentTopic,
+        (currentTopic + ' ' + query).trim()
+      ].map(q => q.trim()).filter(Boolean))];
+      let match = null;
+      try {
+        for (const searchTerm of queries) {
+          const url = 'https://commons.wikimedia.org/w/api.php?action=query&format=json&origin=*'
+            + '&generator=search&gsrnamespace=6&gsrlimit=12&gsrsearch=' + encodeURIComponent(searchTerm)
+            + '&prop=imageinfo&iiprop=url&iiurlwidth=1000';
+          const response = await fetch(url);
+          if (!response.ok) continue;
+          const json = await response.json();
+          const pages = Object.values(json.query?.pages || {});
+          match = pages.find(page => page.imageinfo?.[0]?.thumburl || page.imageinfo?.[0]?.url);
+          if (match) break;
+        }
+        // If no relevant image is found, remove the empty image block entirely.
+        if (!match) { wrap.remove(); continue; }
+        const info = match.imageinfo[0];
+        const imageUrl = info.thumburl || info.url;
+        const title = match.title.replace(/^File:/, '');
+        const pageUrl = 'https://commons.wikimedia.org/wiki/' + encodeURIComponent(match.title.replace(/ /g, '_'));
+        wrap.innerHTML = `<img class="viz-image" src="${imageUrl}" alt="${escapeHtml(title)}" loading="lazy">
+          <div class="image-credit"><a href="${pageUrl}" target="_blank" rel="noopener noreferrer">Источник изображения: Wikimedia Commons</a></div>`;
+      } catch (error) {
+        // Network/API failures should not leave an error message in the visual output.
+        wrap.remove();
+        console.warn('Image search failed:', error);
+      }
+    }
+  }
+
+  function renderTable(table) {
+    if (!table.headers || !table.rows) return '';
+    let h = '<table class="viz-table"><thead><tr>';
+    table.headers.forEach(hd => { h += `<th>${escapeHtml(hd)}</th>`; });
+    h += '</tr></thead><tbody>';
+    table.rows.forEach(row => {
+      h += '<tr>';
+      row.forEach(cell => { h += `<td>${escapeHtml(String(cell))}</td>`; });
+      h += '</tr>';
+    });
+    h += '</tbody></table>';
+    return h;
+  }
+
+  function sanitizeMermaid(code) {
+    if (!code || typeof code !== 'string') return '';
+    let s = code.trim();
+    s = s.replace(/^```(?:mermaid)?\s*/i, '').replace(/\s*```$/i, '');
+    if (/^(mindmap|sequenceDiagram|classDiagram|stateDiagram|erDiagram|gantt|pie|gitGraph)/i.test(s)) return '';
+    if (!/^(flowchart|graph)\s/i.test(s)) s = 'flowchart TD\n' + s;
+    s = s.split('\n').filter(line => {
+      const t = line.trim();
+      return t && !/^style\s/i.test(t) && !/^classDef\s/i.test(t) && !/^class\s/i.test(t) && !/^linkStyle\s/i.test(t) && !/^%%/.test(t);
+    }).join('\n');
+    // strip characters that often break mermaid
+    s = s.replace(/["""«»]/g, '');
+    return s.trim();
+  }
+
+  function runMermaid() {
+    if (typeof mermaid === 'undefined') return;
+    try {
+      mermaid.initialize({ startOnLoad: false, theme: 'neutral', securityLevel: 'loose', flowchart: { useMaxWidth: true, htmlLabels: true } });
+    } catch (_) {}
+
+    // Convert data-mmd containers
+    resultBody.querySelectorAll('.mermaid-wrap[data-mmd]').forEach(wrap => {
+      const raw = wrap.getAttribute('data-mmd') || '';
+      wrap.removeAttribute('data-mmd');
+      const pre = document.createElement('pre');
+      pre.className = 'mermaid';
+      pre.textContent = raw;
+      wrap.appendChild(pre);
+    });
+
+    const nodes = [...resultBody.querySelectorAll('.mermaid')];
+    nodes.forEach(async (el) => {
+      const wrap = el.parentElement;
+      const cleaned = sanitizeMermaid(el.textContent || '');
+      if (!cleaned) {
+        if (wrap && wrap.classList.contains('mermaid-wrap')) wrap.remove();
+        else el.remove();
+        return;
+      }
+      try {
+        const id = 'mmd' + Math.random().toString(36).slice(2, 10);
+        const { svg } = await mermaid.render(id, cleaned);
+        if (wrap) wrap.innerHTML = svg;
+      } catch (e) {
+        // Mermaid may create its own visible error SVG before rejecting.
+        if (wrap) wrap.replaceChildren();
+        if (wrap && wrap.classList.contains('mermaid-wrap')) wrap.remove();
+        else el.remove();
+        console.warn('Mermaid diagram skipped due to invalid syntax:', e);
+      }
+    });
+  }
+
+  function renderAudio(text) {
+    // Clean text for speech
+    const clean = text.replace(/[#*_`]/g, '').replace(/\n{2,}/g, '\n\n').trim();
+    resultBody.innerHTML = `
+      <div class="audio-player">
+        <div class="audio-controls">
+          <button class="audio-btn" id="playBtn" title="Воспроизвести">▶</button>
+          <button class="audio-btn stop" id="stopBtn" title="Стоп">■</button>
+          <select class="speed-select" id="speedSelect">
+            <option value="0.8">0.8×</option>
+            <option value="1" selected>1×</option>
+            <option value="1.2">1.2×</option>
+            <option value="1.5">1.5×</option>
+          </select>
+        </div>
+        <div class="audio-text">${escapeHtml(clean).replace(/\n/g, '<br>')}</div>
+      </div>
+    `;
+
+    const playBtn = $('#playBtn');
+    const stopBtn = $('#stopBtn');
+    const speedSelect = $('#speedSelect');
+
+    playBtn.addEventListener('click', () => {
+      if (isSpeaking) {
+        window.speechSynthesis.pause();
+        isSpeaking = false;
+        playBtn.textContent = '▶';
+        return;
+      }
+      if (window.speechSynthesis.paused) {
+        window.speechSynthesis.resume();
+        isSpeaking = true;
+        playBtn.textContent = '❚❚';
+        return;
+      }
+      stopSpeech();
+      speechUtterance = new SpeechSynthesisUtterance(clean);
+      speechUtterance.lang = 'ru-RU';
+      speechUtterance.rate = parseFloat(speedSelect.value) || 1;
+      speechUtterance.onend = () => {
+        isSpeaking = false;
+        playBtn.textContent = '▶';
+      };
+      window.speechSynthesis.speak(speechUtterance);
+      isSpeaking = true;
+      playBtn.textContent = '❚❚';
+    });
+
+    stopBtn.addEventListener('click', () => {
+      stopSpeech();
+      playBtn.textContent = '▶';
+    });
+
+    speedSelect.addEventListener('change', () => {
+      if (speechUtterance && isSpeaking) {
+        // Restart with new rate is more reliable
+        const wasPlaying = isSpeaking;
+        stopSpeech();
+        if (wasPlaying) playBtn.click();
+      }
+    });
+  }
+
+  function stopSpeech() {
+    window.speechSynthesis.cancel();
+    isSpeaking = false;
+    speechUtterance = null;
+  }
+
+  function renderInteractive(raw) {
+    let data;
+    try {
+      data = parseJsonLoose(raw);
+    } catch (_) {
+      resultBody.innerHTML = '<div class="info-card"><p>Не удалось разобрать задания. Нажмите «Другая вариация».</p></div>';
+      return;
+    }
+
+    let flip = data.flip || [];
+    let match = data.match || [];
+    let quiz = data.quiz || [];
+    let order = data.order || null;
+
+    if ((!flip.length || !match.length) && (data.game || data.games || data.items)) {
+      const list = data.game || data.games || data.items || [];
+      list.forEach(item => {
+        if (item.type === 'flip' && item.cards) {
+          flip = item.cards.map(c => ({ term: c.front || c.term, def: c.back || c.def }));
+        }
+        if (item.type === 'memory' && item.pairs) {
+          match = item.pairs.map(p => ({ left: p[0], right: p[1] }));
+          if (!flip.length) flip = item.pairs.map(p => ({ term: p[0], def: p[1] }));
+        }
+        if (item.type === 'match' && item.pairs) {
+          match = item.pairs.map(p => ({ left: p[0], right: p[1] }));
+        }
+        if (item.type === 'quiz') {
+          quiz.push({ q: item.question || item.q, options: item.options || [], correct: item.correct || 0 });
+        }
+        if (item.type === 'sequence' || item.type === 'order') {
+          order = { title: item.title || item.question || 'Порядок', hint: item.hint || '', items: item.correct || item.items || item.options || [] };
+        }
+      });
+    }
+
+    const steps = [];
+    if (flip.length) steps.push({ id: 'flip', title: 'Карточки', build: () => buildFlipStep(flip) });
+    if (match.length) steps.push({ id: 'match', title: 'Соедини пары', build: () => buildMatchStep(match) });
+    if (order && order.items && order.items.length) steps.push({ id: 'order', title: order.title || 'Порядок', build: () => buildOrderStep(order) });
+    if (quiz.length) steps.push({ id: 'quiz', title: 'Тест', build: () => buildQuizStep(quiz) });
+
+    if (!steps.length) {
+      resultBody.innerHTML = '<div class="info-card"><p>Нет игровых данных. Нажмите «Другая вариация».</p></div>';
+      return;
+    }
+
+    let stepIndex = 0;
+
+    function renderStep() {
+      const step = steps[stepIndex];
+      let html = '';
+      html += '<div class="ia-header">';
+      html += '<h2>' + escapeHtml(data.title || 'Интерактив') + '</h2>';
+      html += '<div class="ia-steps">';
+      steps.forEach((s, i) => {
+        html += '<span class="ia-step-dot' + (i === stepIndex ? ' active' : '') + (i < stepIndex ? ' done' : '') + '">' + (i + 1) + '</span>';
+        if (i < steps.length - 1) html += '<span class="ia-step-line' + (i < stepIndex ? ' done' : '') + '"></span>';
+      });
+      html += '</div>';
+      html += '<div class="ia-step-label">' + escapeHtml(step.title) + ' · ' + (stepIndex + 1) + ' / ' + steps.length + '</div>';
+      html += '</div>';
+      html += '<div class="ia-body" id="iaBody"></div>';
+      html += '<div class="ia-nav">';
+      if (stepIndex > 0) html += '<button type="button" class="btn-secondary" id="iaPrev">Назад</button>';
+      else html += '<span></span>';
+      if (stepIndex < steps.length - 1) html += '<button type="button" class="btn-primary" id="iaNext">Далее</button>';
+      else html += '<button type="button" class="btn-primary" id="iaNext" disabled>Готово</button>';
+      html += '</div>';
+
+      resultBody.innerHTML = html;
+      const body = resultBody.querySelector('#iaBody');
+      body.innerHTML = step.build();
+      bindStepHandlers(step.id, body);
+
+      const prev = resultBody.querySelector('#iaPrev');
+      const next = resultBody.querySelector('#iaNext');
+      if (prev) prev.addEventListener('click', () => { stepIndex--; renderStep(); });
+      if (next && stepIndex < steps.length - 1) next.addEventListener('click', () => { stepIndex++; renderStep(); });
+    }
+
+    function buildFlipStep(cards) {
+      let h = '<p class="game-hint">Нажми на карточку, чтобы увидеть объяснение</p><div class="flip-grid">';
+      cards.forEach((c, i) => {
+        h += '<div class="flip-card" data-i="' + i + '" role="button" tabindex="0">' +
+          '<div class="flip-inner">' +
+          '<div class="flip-face flip-front"><span>' + escapeHtml(c.term || c.front || '') + '</span></div>' +
+          '<div class="flip-face flip-back"><span>' + escapeHtml(c.def || c.back || '') + '</span></div>' +
+          '</div></div>';
+      });
+      h += '</div>';
+      return h;
+    }
+
+    function buildMatchStep(pairs) {
+      const rights = pairs.map((m, i) => ({ text: m.right, id: i }));
+      for (let i = rights.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [rights[i], rights[j]] = [rights[j], rights[i]];
+      }
+      let h = '<p class="game-hint">Сначала выбери понятие слева, затем определение справа</p>';
+      h += '<div class="match-board">';
+      h += '<div class="match-col">';
+      pairs.forEach((m, i) => {
+        h += '<button type="button" class="match-item match-l" data-id="' + i + '">' + escapeHtml(m.left) + '</button>';
+      });
+      h += '</div><div class="match-col">';
+      rights.forEach(r => {
+        h += '<button type="button" class="match-item match-r" data-id="' + r.id + '">' + escapeHtml(r.text) + '</button>';
+      });
+      h += '</div></div>';
+      h += '<div class="game-status" id="matchStatus">Соединено: 0 / ' + pairs.length + '</div>';
+      return h;
+    }
+
+    function buildOrderStep(orderData) {
+      const correct = [...(orderData.items || [])];
+      const shuffled = [...correct].sort(() => Math.random() - 0.5);
+      // avoid same order
+      if (shuffled.join('|') === correct.join('|') && shuffled.length > 1) {
+        const t = shuffled[0]; shuffled[0] = shuffled[1]; shuffled[1] = t;
+      }
+      let h = '<p class="game-hint">' + escapeHtml(orderData.hint || 'Расставь элементы в правильном порядке. Нажимай ↑ ↓ или перетаскивай.') + '</p>';
+      h += '<div class="order-list" id="orderList" data-correct="' + escapeHtml(JSON.stringify(correct)).replace(/"/g, '&quot;') + '">';
+      shuffled.forEach((item, i) => {
+        h += '<div class="order-item" draggable="true" data-val="' + escapeHtml(item) + '">' +
+          '<span class="order-num">' + (i + 1) + '</span>' +
+          '<span class="order-text">' + escapeHtml(item) + '</span>' +
+          '<span class="order-btns">' +
+          '<button type="button" class="order-up" title="Выше">↑</button>' +
+          '<button type="button" class="order-down" title="Ниже">↓</button>' +
+          '</span></div>';
+      });
+      h += '</div>';
+      h += '<button type="button" class="btn-secondary small" id="checkOrder">Проверить порядок</button>';
+      h += '<div class="quiz-feedback hidden" id="orderFeedback"></div>';
+      return h;
+    }
+
+    function buildQuizStep(items) {
+      let h = '';
+      items.forEach((item, idx) => {
+        h += '<div class="quiz-item"><div class="q-text">' + escapeHtml(item.q || item.question || '') + '</div><div class="quiz-options">';
+        (item.options || []).forEach((opt, oi) => {
+          h += '<label class="quiz-option" data-correct="' + (oi === item.correct) + '">' +
+            '<input type="radio" name="quiz' + idx + '" value="' + oi + '"><span>' + escapeHtml(opt) + '</span></label>';
+        });
+        h += '</div><div class="quiz-feedback hidden"></div></div>';
+      });
+      return h;
+    }
+
+    function bindStepHandlers(id, root) {
+      if (id === 'flip') {
+        root.querySelectorAll('.flip-card').forEach(card => {
+          const toggle = () => card.classList.toggle('is-flipped');
+          card.addEventListener('click', toggle);
+          card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+        });
+      }
+
+      if (id === 'match') {
+        let selectedLeft = null;
+        let connected = 0;
+        const total = root.querySelectorAll('.match-l').length;
+        const status = root.querySelector('#matchStatus');
+        root.querySelectorAll('.match-l').forEach(btn => {
+          btn.addEventListener('click', () => {
+            if (btn.classList.contains('done')) return;
+            root.querySelectorAll('.match-l').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            selectedLeft = btn;
+          });
+        });
+        root.querySelectorAll('.match-r').forEach(btn => {
+          btn.addEventListener('click', () => {
+            if (btn.classList.contains('done') || !selectedLeft) return;
+            if (selectedLeft.dataset.id === btn.dataset.id) {
+              selectedLeft.classList.add('done');
+              btn.classList.add('done');
+              selectedLeft.classList.remove('active');
+              selectedLeft = null;
+              connected++;
+              if (status) status.textContent = connected === total ? 'Все пары соединены' : ('Соединено: ' + connected + ' / ' + total);
+            } else {
+              btn.classList.add('wrong');
+              selectedLeft.classList.add('wrong');
+              const L = selectedLeft;
+              setTimeout(() => {
+                btn.classList.remove('wrong');
+                L.classList.remove('wrong', 'active');
+                selectedLeft = null;
+              }, 400);
+            }
+          });
+        });
+      }
+
+      if (id === 'order') {
+        const list = root.querySelector('#orderList');
+        function renumber() {
+          [...list.querySelectorAll('.order-item')].forEach((el, i) => {
+            const num = el.querySelector('.order-num');
+            if (num) num.textContent = String(i + 1);
+          });
+        }
+        list.querySelectorAll('.order-up').forEach(btn => {
+          btn.addEventListener('click', e => {
+            e.stopPropagation();
+            const item = btn.closest('.order-item');
+            if (item.previousElementSibling) {
+              list.insertBefore(item, item.previousElementSibling);
+              renumber();
+            }
+          });
+        });
+        list.querySelectorAll('.order-down').forEach(btn => {
+          btn.addEventListener('click', e => {
+            e.stopPropagation();
+            const item = btn.closest('.order-item');
+            if (item.nextElementSibling) {
+              list.insertBefore(item.nextElementSibling, item);
+              renumber();
+            }
+          });
+        });
+        // drag and drop
+        let dragEl = null;
+        list.querySelectorAll('.order-item').forEach(item => {
+          item.addEventListener('dragstart', () => { dragEl = item; item.classList.add('dragging'); });
+          item.addEventListener('dragend', () => { item.classList.remove('dragging'); dragEl = null; renumber(); });
+          item.addEventListener('dragover', e => { e.preventDefault(); });
+          item.addEventListener('drop', e => {
+            e.preventDefault();
+            if (dragEl && dragEl !== item) {
+              const items = [...list.querySelectorAll('.order-item')];
+              const from = items.indexOf(dragEl);
+              const to = items.indexOf(item);
+              if (from < to) list.insertBefore(dragEl, item.nextElementSibling);
+              else list.insertBefore(dragEl, item);
+              renumber();
+            }
+          });
+        });
+        root.querySelector('#checkOrder').addEventListener('click', () => {
+          const correct = JSON.parse(list.dataset.correct || '[]');
+          const current = [...list.querySelectorAll('.order-item')].map(el => el.dataset.val);
+          const ok = current.join('|') === correct.join('|');
+          const fb = root.querySelector('#orderFeedback');
+          fb.classList.remove('hidden', 'ok', 'fail');
+          fb.classList.add(ok ? 'ok' : 'fail');
+          fb.textContent = ok ? 'Порядок верный' : 'Пока неверно — попробуй ещё';
+        });
+      }
+
+      if (id === 'quiz') {
+        root.querySelectorAll('.quiz-option input[type="radio"]').forEach(input => {
+          input.addEventListener('change', e => {
+            const label = e.target.closest('.quiz-option');
+            const item = label.closest('.quiz-item');
+            item.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected', 'correct', 'wrong'));
+            label.classList.add('selected');
+            const ok = label.dataset.correct === 'true';
+            label.classList.add(ok ? 'correct' : 'wrong');
+            const fb = item.querySelector('.quiz-feedback');
+            fb.classList.remove('hidden', 'ok', 'fail');
+            fb.classList.add(ok ? 'ok' : 'fail');
+            fb.textContent = ok ? 'Верно' : 'Неверно';
+          });
+        });
+      }
+    }
+
+    renderStep();
+  }
+
+  /* ---------- Settings ---------- */
+  function loadSettingsUI() {
+    const s = AI.getSettings();
+    $('#providerSelect').value = s.provider || 'groq';
+    $('#apiKeyInput').value = s.apiKey || '';
+    $('#modelInput').value = s.model || '';
+    $('#customEndpoint').value = s.customEndpoint || '';
+    toggleCustomEndpoint();
+  }
+
+  function toggleCustomEndpoint() {
+    const isCustom = $('#providerSelect').value === 'custom';
+    $('#customEndpointGroup').classList.toggle('hidden', !isCustom);
+  }
+
+  $('#providerSelect')?.addEventListener('change', toggleCustomEndpoint);
+
+  $('#saveSettingsBtn')?.addEventListener('click', () => {
+    if (!editorMode) { alert('Доступно только в режиме редактора.'); return; }
+    const settings = {
+      provider: $('#providerSelect').value,
+      apiKey: $('#apiKeyInput').value.trim(),
+      model: $('#modelInput').value.trim(),
+      customEndpoint: $('#customEndpoint').value.trim()
+    };
+    AI.saveSettings(settings);
+    const status = $('#apiStatus');
+    status.textContent = 'Настройки сохранены локально';
+    status.className = 'api-status show ok';
+  });
+
+  $('#testApiBtn')?.addEventListener('click', async () => {
+    if (!editorMode) { alert('Доступно только в режиме редактора.'); return; }
+    // Save first
+    AI.saveSettings({
+      provider: $('#providerSelect').value,
+      apiKey: $('#apiKeyInput').value.trim(),
+      model: $('#modelInput').value.trim(),
+      customEndpoint: $('#customEndpoint').value.trim()
+    });
+    const status = $('#apiStatus');
+    status.textContent = 'Проверка...';
+    status.className = 'api-status show';
+    try {
+      const res = await AI.testConnection();
+      status.textContent = res.message;
+      status.className = 'api-status show ' + (res.ok ? 'ok' : 'err');
+    } catch (err) {
+      status.textContent = err?.message || 'Не удалось проверить подключение';
+      status.className = 'api-status show err';
+    }
+  });
+
+  /* ---------- About ---------- */
+  const ABOUT_KEY = 'kim_about';
+
+  function loadAbout() {
+    try {
+      const data = JSON.parse(localStorage.getItem(ABOUT_KEY) || '{}');
+      if (data.title) $('#aboutTitle').value = data.title;
+      if (data.desc) $('#aboutDesc').value = data.desc;
+      $('#aboutAuthors').value = data.authors || 'Джуманазарова Алина; Ашимова Регина';
+      $('#aboutSupervisor').value = data.supervisor || 'Кожамбердиева Дилназ Талатовна';
+      if (data.institution) $('#aboutInstitution').value = data.institution;
+    } catch (_) {}
+  }
+
+  $('#saveAboutBtn')?.addEventListener('click', () => {
+    const data = {
+      title: $('#aboutTitle').value,
+      desc: $('#aboutDesc').value,
+      authors: $('#aboutAuthors').value,
+      supervisor: $('#aboutSupervisor').value,
+      institution: $('#aboutInstitution').value
+    };
+    localStorage.setItem(ABOUT_KEY, JSON.stringify(data));
+    alert('Данные о проекте сохранены');
+  });
+
+  /* ---------- Init ---------- */
+  loadSettingsUI();
+  loadAbout();
+  setEditorMode(false);
+
+  // Enter key on topic
+  topicInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') generateBtn.click();
+  });
+})();
+
+  </script>
+</body>
+</html>
